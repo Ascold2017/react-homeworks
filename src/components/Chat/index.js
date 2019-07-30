@@ -23,13 +23,9 @@ class Chat extends React.Component {
     return (
       <div className="chat">
         <div className="message-list">
-          <ul className="messages">
-            {this.state.messages.map((msg, i) => (
-              <li key={i}>
-                <Message text={msg.text} />
-              </li>
-            ))}
-          </ul>
+          <div className="messages">
+            {this.state.messages.map((msg, i) => (<Message text={msg.text} key={i}/>))}
+          </div>
         </div>
         <input className="input-message" value={this.state.messageInput} onChange={this.changeInputMessage} onKeyPress={this.sendMessageOnEnter}/>
       </div>
