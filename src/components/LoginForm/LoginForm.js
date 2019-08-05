@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { AuthConsumer } from '../../contexts/Auth'
 import './LoginForm.css';
 import Button from '../Button';
 

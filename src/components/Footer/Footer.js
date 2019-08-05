@@ -4,8 +4,19 @@ import './Footer.css';
 
 class Footer extends PureComponent {
   render() {
-    return 'empty';
+    const { isAuthorized, email } = this.props;
+    return (
+      <p className="footer-message t-footer">
+        {isAuthorized ? `Вы вошли как ${email}` : 'Вы гость в этой системе'}
+      </p>
+    );
   }
 }
 
-export default Footer;
+export default () => (
+  <AuthConsumer>
+    {({ isAuthorized, email }) => (
+      <Footer isAuthorized={isAuthorized} email={email} />
+    )}
+  </AuthConsumer>
+);
