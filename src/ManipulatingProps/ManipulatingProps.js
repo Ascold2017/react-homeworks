@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {getLoggedInUser} from '../utils'
+import { getLoggedInUser } from '../utils';
 
 /*
   Манипуляция пропами
@@ -13,7 +13,9 @@ import {getLoggedInUser} from '../utils'
 
 const LoadingSpinner = () => <div>Loading...</div>;
 
-export const withLoading = () => {}
+export const withLoading = WrappedComponent => {
+  return ({ loading, ...other }) => loading ? <LoadingSpinner /> : <WrappedComponent {...other} />;
+};
 
 /*
   Следующий HOC - injector, его особенность в том,
@@ -29,8 +31,13 @@ export const withLoading = () => {}
   const user = getLoggedInUser()
 */
 
-
-export const addLoggedInUser = () => {}
+export const addLoggedInUser = (WrappedComponent) => {
+  const defaultUser = getLoggedInUser()
+  return ({ user, ...other }) => {
+    user = (JSON.stringify(user) === JSON.stringify(defaultUser)) ? user : defaultUser;
+    return (<WrappedComponent user={user} {...other} />)
+  }
+};
 
 /*
   Помимо добавления новых пропов можно модифицировать те,
@@ -44,4 +51,10 @@ export const addLoggedInUser = () => {}
   и передаст в обёрнутый компонент
 */
 
-export const withSort = () => {}
+export const withSort = (WrappedComponent) => {
+
+  return ({ books }) => {
+    books = books.sort((p, n) => p.title > n.title)
+    return <WrappedComponent books={books} />
+  }
+};
