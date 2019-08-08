@@ -14,25 +14,72 @@ class Todo extends PureComponent {
     return biggest + 1;
   }
 
-  handleChange = event => {};
+  handleChange = event => {
+    this.setState({ inputValue: event.target.value });
+  };
 
-  createNewRecordByEnter = event => {};
+  addNewRecord = value => {
+    this.props.saveData([
+      ...this.props.savedData,
+      { value, id: this.getId(), is_checked: false }
+    ]);
+  };
 
-  toggleRecordComplete = event => {};
+  toggleRecordComplete = itemId => {
+    this.props.saveData(
+      this.props.savedData.map(item => {
+        if (item.id === itemId) {
+          item.is_checked = !item.is_checked;
+        }
+        return item;
+      })
+    );
+  };
 
-  createNewRecord = () => {};
+  createNewRecord = event => {
+    event.preventDefault();
+    const { inputValue } = this.state;
+    if (inputValue) {
+      this.addNewRecord(inputValue);
+      this.setState({ inputValue: '' });
+    }
+  };
 
   render() {
-    return;
+    const { savedData: items } = this.props;
+    return (
+      <Card title="Список дел">
+        <div className="todo t-todo-list">
+          <form
+            className="todo-item todo-item-new"
+            onSubmit={this.createNewRecord}
+          >
+            <input
+              className="todo-input t-input"
+              onChange={this.handleChange}
+              value={this.state.inputValue}
+              placeholder="Введите задачу"
+            />
+            <button className="plus t-plus" type="submit">
+              +
+            </button>
+          </form>
+          {items.map(item => (
+            <div className="todo-item t-todo" key={item.id}>
+              <div className="todo-item__text">{item.value}</div>
+              <span
+                className="todo-item__flag t-todo-complete-flag"
+                onClick={() => this.toggleRecordComplete(item.id)}
+              >
+                [{item.is_checked ? 'x' : ' '}]
+              </span>
+            </div>
+          ))}
+        </div>
+      </Card>
+    );
   }
 
-  renderEmptyRecord() {
-    return;
-  }
-
-  renderRecord = record => {
-    return;
-  };
 }
 
 export default withLocalstorage('todo-app', [])(Todo);
