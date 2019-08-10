@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { load, save } from '../../localstorage';
 
 const withLocalstorage = (name, initData) => {
-  return WrappedComponent => {
+  return WrappedComponent =>
     class WithLocalStorage extends Component {
       state = {
         savedData: initData
@@ -24,10 +24,7 @@ const withLocalstorage = (name, initData) => {
           />
         );
       }
-    }
-
-    return WithLocalStorage;
-  };
+    };
 };
 
 export default withLocalstorage;
