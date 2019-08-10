@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import {getLoggedInUser} from '../utils'
 
 /*
@@ -18,4 +17,7 @@ import {getLoggedInUser} from '../utils'
   const user = getLoggedInUser()
 */
 
-export const WithLoggedInUser = () => {}
+export const WithLoggedInUser = ({ children }) => {
+  const user = getLoggedInUser()
+  return children({ user })
+}

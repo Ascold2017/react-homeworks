@@ -14,4 +14,19 @@ import {getLoggedInUser} from '../utils'
   Кнопка должна получать onClick коллбек из компонента-обёртки
 */
 
-export const WithTooltip = () => {}
+export class WithTooltip extends Component {
+  state = {
+    isActiveTooltip: false
+  }
+  onClick = (e) => {
+    this.setState({ isActiveTooltip: !this.state.isActiveTooltip })
+  }
+  render() {
+    return (
+      <React.Fragment>
+        { this.props.children(this.onClick) }
+        { this.state.isActiveTooltip ? <div data-testid="tooltip">Hello, i'm Tooltip</div> : null }
+      </React.Fragment>
+    )
+  }
+}
