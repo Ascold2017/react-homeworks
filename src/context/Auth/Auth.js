@@ -10,13 +10,13 @@ class AuthProvider extends Component {
     authError: ''
   };
 
-  authorize = (email, password) => {
+  authorize = (email, password) => new Promise((resolve, reject) => {
     if (email === this.email && password === this.password) {
-      this.setState({ isAuthorized: true, authError: '' });
+      this.setState({ isAuthorized: true, authError: '' }, () => resolve(true));
     } else {
-      this.setState({ authError: 'Почта или пароль не верные' });
+      this.setState({ authError: 'Почта или пароль не верные' }, () => reject(false));
     }
-  };
+  });
 
   getProviderValue = () => {
     const { isAuthorized, authError } = this.state;
