@@ -72,7 +72,7 @@ const LoginForm = class LoginForm extends Component {
           </p>
           {authError && <p className={error}>{authError}</p>}
           <div className={buttons}>
-            <button type="submit" className={classNames(button, 't-submit')}>
+            <button type="submit" className={classNames(button, 't-login')}>
               Отправить
             </button>
           </div>
