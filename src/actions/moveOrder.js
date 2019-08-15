@@ -3,10 +3,10 @@ export const MOVE_ORDER_BACK = 'MOVE_ORDER_BACK';
 
 export const moveOrderNext = orderId => ({
   type: MOVE_ORDER_NEXT,
-  payload: orderId
+  payload: +orderId
 });
 
 export const moveOrderBack = orderId => ({
   type: MOVE_ORDER_BACK,
-  payload: orderId
+  payload: +orderId
 });
