@@ -1,3 +1,15 @@
-// Реализуйте роутер
-// Вам нужно определить корневой роут, который будет вести на страницу поиска.
-// Роут шоу должен принимать id в параметрах.
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import Search from '../Search';
+
+import { App } from './AppRouter.css';
+
+export default () => {
+  return (
+    <div className={App}>
+      <Switch>
+        <Route path="/" component={Search} />
+      </Switch>
+    </div>
+  );
+};
