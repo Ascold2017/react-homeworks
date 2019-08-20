@@ -1,0 +1,1 @@
+export const getSolNum = state => state.roverPhotos.sol.current;
