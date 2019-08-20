@@ -1,14 +1,17 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 import Search from '../Search';
+import ShowPage from '../ShowPage'
 
-import { App } from './AppRouter.css';
+import './AppRouter.css';
 
 export default () => {
   return (
-    <div className={App}>
+    <div className="App">
       <Switch>
-        <Route path="/" component={Search} />
+        <Redirect from="/" to="/show" exact />
+        <Route path="/show" exact component={Search} />
+        <Route path="/show/:id" component={ShowPage} />
       </Switch>
     </div>
   );

@@ -65,7 +65,7 @@ const searchQuery = handleActions(
     [setSearchQuery]: (_state, action) => action.payload,
     [searchRequest]: () => ''
   },
-  null
+  ''
 );
 
 export default combineReducers({

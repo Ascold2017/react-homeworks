@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
   searchPanel,
   previewList,
@@ -6,51 +7,83 @@ import {
   buttonWrapper,
   button
 } from './Search.module.css';
-
+import {
+  getSearchQuery,
+  getIsLoadingShowsList,
+  getShowsListError,
+  getShowsList
+} from '../../store/shows/selectors';
+import { setSearchQuery, searchRequest } from '../../store/shows/actions';
+import classNames from 'classnames';
 import ShowPreview from '../ShowPreview';
-// Реализуйте страницу поиска.
 
-// Используйте метод connect и mapStateToProps, mapDispatchToProps,
-// чтобы получить ссылку на поле search вашего стейта
-// и экшн searchRequest.
-
-const Search = () => {
-  return (
-    <React.Fragment>
-      <div className={previewList}>
-        <input className={input} />
-        <div className={buttonWrapper}>
-          <button className={button}>Загрузить</button>
+class Search extends React.PureComponent {
+  handleSearchInput = event => {
+    const { value } = event.target;
+    const { updateSearchQuery } = this.props;
+    updateSearchQuery(value);
+  };
+  submitSearch = () => {
+    const { searchQuery, getShows } = this.props;
+    searchQuery && getShows();
+  };
+  render() {
+    const { searchQuery, showsList, isLoadingShows, showsError } = this.props;
+    return (
+      <React.Fragment>
+        <div className={previewList}>
+          <input
+            className={classNames(input, 't-input')}
+            value={searchQuery}
+            onChange={this.handleSearchInput}
+          />
+          <div className={buttonWrapper}>
+            <button
+              className={classNames(button, 't-search-button')}
+              onClick={this.submitSearch}
+            >
+              Найти
+            </button>
+          </div>
         </div>
-      </div>
-      <div className={searchPanel}>
-        <ShowPreview
-          {...{
-            image: 'test',
-            name: 'test_name',
-            id: '123',
-            summary: '<p>Test</p>'
-          }}
-        />
-        <ShowPreview
-          {...{
-            image: 'test',
-            name: 'test_name',
-            id: '123',
-            summary: '<p>Test</p>'
-          }}
-        />
-        <ShowPreview
-          {...{
-            image: 'test',
-            name: 'test_name',
-            id: '123',
-            summary: '<p>Test</p>'
-          }}
-        />
-      </div>
-    </React.Fragment>
-  );
-};
+        <div className={classNames(searchPanel, 't-search-result')}>
+          {isLoadingShows && <div>Loading...</div>}
+          {showsError && <div>{showsError}</div>}
+          {!isLoadingShows &&
+            !showsError &&
+            (showsList.length ? (
+              showsList.map(show => (
+                <ShowPreview
+                  key={show.id}
+                  {...{
+                    image: show.image,
+                    name: show.name,
+                    id: show.id,
+                    summary: show.summary
+                  }}
+                />
+              ))
+            ) : (
+              <div>Not found!</div>
+            ))}
+        </div>
+      </React.Fragment>
+    );
+  }
+}
 
-export default Search;
+const mapStateToProps = state => ({
+  searchQuery: getSearchQuery(state),
+  showsList: getShowsList(state),
+  isLoadingShows: getIsLoadingShowsList(state),
+  showsError: getShowsListError(state)
+});
+
+const mapDispatchToProps = {
+  updateSearchQuery: setSearchQuery,
+  getShows: searchRequest
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Search);
