@@ -1,4 +1,5 @@
 import { createAction } from 'redux-actions';
 
-// Здесь не хватает экшенов для модуля FOLLOWERS.
-// FETCH_REQUEST, FETCH_SUCCESS, FETCH_FAILURE
+export const fetchRequest = createAction('followers/FETCH_REQUEST')
+export const fetchSuccess = createAction('followers/FETCH_SUCCESS')
+export const fetchFailure = createAction('followers/FETCH_FAILURE')

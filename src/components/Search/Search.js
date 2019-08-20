@@ -2,14 +2,14 @@ import React, { PureComponent } from 'react';
 import styles from './Search.module.css';
 import Input from '../Input';
 import { connect } from 'react-redux';
-import { fetchRequest as fetchUserRequest } from '../../modules/User';
-import { fetchRequest as fetchFollowersRequest } from '../../modules/Followers';
+import { fetchRequest as fetchUserRequest } from '../../modules/User/actions';
+import { fetchRequest as fetchFollowersRequest } from '../../modules/Followers/actions';
 import UserInfo from '../UserInfo';
 import Followers from '../Followers';
 
 class Search extends PureComponent {
   state = {
-    user: ''
+    user: 'Ascold2017'
   };
 
   input = React.createRef();
@@ -53,6 +53,6 @@ class Search extends PureComponent {
 }
 
 export default connect(
-  undefined,
+  null,
   { fetchUserRequest, fetchFollowersRequest }
 )(Search);
