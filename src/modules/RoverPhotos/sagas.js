@@ -1,10 +1,10 @@
-import { takeLatest, select, put, call, fork } from 'redux-saga/effects';
+import { takeEvery, select, put, call, fork } from 'redux-saga/effects';
 import { fetchPhotosRequest, fetchPhotosSuccess, fetchPhotosFailure } from './actions'
 import { getApiKey } from '../Auth/selectors'
 import { getSolNum } from '../RoverPhotos/selectors'
 import { getPhotos } from './api'
 function* fetchRoverPhotosWatcher () {
-    yield takeLatest(fetchPhotosRequest.toString(), fetchRoverPhotosFlow)
+    yield takeEvery(fetchPhotosRequest.toString(), fetchRoverPhotosFlow)
 }
 
 function* fetchRoverPhotosFlow (action) {

@@ -17,15 +17,30 @@ const photos = handleActions(
   {
     [fetchPhotosRequest]: (state, { payload: { name, sol } }) => ({
       ...state,
-      [name]: { [sol]: { isLoading: true, photos: [], isLoaded: false } }
+      [name]: {
+        ...state[name],
+        [sol]: { isLoading: true, photos: [], isLoaded: false }
+      }
     }),
     [fetchPhotosSuccess]: (state, { payload: { name, sol, photos } }) => ({
       ...state,
-      [name]: { [sol]: { isLoading: false, photos, isLoaded: true } }
+      [name]: {
+        ...state[name],
+        [sol]: {
+          isLoading: false,
+          photos: photos.map(photo => ({
+            id: photo.id,
+            img_src: photo.img_src
+          })),
+          isLoaded: true
+        }
+      }
     }),
     [fetchPhotosFailure]: (state, { payload: { name, sol } }) => ({
       ...state,
-      [name]: { [sol]: { isLoading: false, photos: [], isLoaded: false } }
+      [name]: {
+        ...state[name],
+        [sol]: { isLoading: false, photos: [], isLoaded: false } }
     })
   },
   {}
