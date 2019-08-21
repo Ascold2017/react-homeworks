@@ -1,5 +1,5 @@
 import reducer from './reducer';
-import { fetchRequest, fetchSuccess, fetchFailure } from './actions';
+import { fetchRequest, fetchSuccess, fetchFailure } from './index';
 
 const randomAction = {
   type: `RANDOM_ACTION_${parseInt(Math.random() * 1000, 10)}`

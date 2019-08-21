@@ -3,7 +3,7 @@ import styles from './followers.module.css';
 import {
   getIsLoadingFollowers,
   getFollowersList
-} from '../../modules/Followers/selectors';
+} from '../../modules/Followers';
 import { connect } from 'react-redux';
 import cx from 'classnames';
 
@@ -14,8 +14,8 @@ class Followers extends PureComponent {
     if (isLoading) return <div>Loading...</div>;
     return (
       <div className={cx(styles.root, 't-followers')}>
-        {list.map(follower => (
-          <div className={styles.follower}>
+        {list.map((follower, i) => (
+          <div className={styles.follower} key={i}>
             <img
               src={follower.image}
               className={styles.followerImg}

@@ -1,7 +1,7 @@
 import { fetchUserFlow } from './sagas';
 import { select, call, put } from 'redux-saga/effects';
 import { getApiKey } from '../Auth';
-import { fetchRequest, fetchSuccess } from './actions';
+import { fetchRequest, fetchSuccess } from './index';
 import { getUserInfo } from './api';
 
 describe('fetchUserFlow', () => {

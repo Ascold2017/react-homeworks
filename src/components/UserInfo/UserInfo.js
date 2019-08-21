@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import styles from './UserInfo.module.css';
-import { getIsLoadingUserInfo, getUserInfoData } from '../../modules/User/selectors'
+import { isLoadingUserInfo, userInfoData } from '../../modules/User'
 import { connect } from 'react-redux';
 
 class UserInfo extends PureComponent {
@@ -19,6 +19,6 @@ class UserInfo extends PureComponent {
 }
 
 export default connect(state => ({
-  isLoading: getIsLoadingUserInfo(state),
-  user: getUserInfoData(state)
+  isLoading: isLoadingUserInfo(state),
+  user: userInfoData(state)
 }))(UserInfo);
