@@ -25,6 +25,11 @@ const Img = styled('img')({
   height: 'auto',
   display: 'block'
 });
+const FormTitle = styled('div')({
+  textAlign: 'center',
+  fontWeight: 'bold',
+  padding: '10px'
+})
 
 class RoversViewer extends PureComponent {
   componentDidMount() {
@@ -38,10 +43,11 @@ class RoversViewer extends PureComponent {
     changeSol(value);
   };
   handleCommitSol = (e, value) => {
+    const { fetchPhotosRequest } = this.props;
     fetchPhotosRequest({ sol: value, name: 'curiosity' });
     fetchPhotosRequest({ sol: value, name: 'opportunity' });
     fetchPhotosRequest({ sol: value, name: 'spirit' });
-  }
+  };
 
   renderLoadingTile(key) {
     return <GridListTile key={key}>Loading..</GridListTile>;
@@ -76,6 +82,7 @@ class RoversViewer extends PureComponent {
               onChange={this.handleChangeSol}
               onChangeCommitted={this.handleCommitSol}
             />
+            <FormTitle>Sol: {sol}</FormTitle>
           </CardContent>
         </FormCard>
         <div className={styles.сontainer}>
